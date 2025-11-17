@@ -25,7 +25,10 @@ public class ClientService {
 
     public Integer calculateClientAge(int id){
         Optional<Client> client = repository.findById(id);
-        if (client.isPresent()){
+        return calculateClientAge(client);
+    }
+
+    public Integer calculateClientAge(Optional<Client> client){
             LocalDate birthDate = client.get().getDateOfBirth();
             LocalDate currentDate = LocalDate.now();
             if ((birthDate != null)) {
@@ -33,25 +36,22 @@ public class ClientService {
             } else {
                 return 0;
             }
-        }else {
-            return 0;
-        }
     }
 
-    public ResponseEntity<Client> addClient(Client client) throws InvalidLicenseException{
-        if (isLicenseValid(client)){
-            save(client);
-            return ResponseEntity.status(HttpStatus.CREATED).body(client);
+    public ResponseEntity<Client> addClient(Client client) throws InvalidLicenseException, ClientUnder18Exception{
+        int clientAge = calculateClientAge(Optional.ofNullable(client));
+        if (!isLicenseValid(client)){
+            throw new InvalidLicenseException(client.getLicenseNumber());
+        } else if (clientAge <18) {
+            throw new ClientUnder18Exception(clientAge);
         }
-        throw new InvalidLicenseException(client.getLicenseNumber());
+        save(client);
+        return ResponseEntity.status(HttpStatus.CREATED).body(client);
+
     }
 
     public boolean isLicenseValid(Client client){
-        boolean isLicenseValid = restTemplate.getForObject("http://license/licenses/" + client.getLicenseNumber(), Boolean.class);
-        if (isLicenseValid){
-            return true;
-        }
-        return false;
+        return restTemplate.getForObject("http://license/licenses/" + client.getLicenseNumber(), Boolean.class);
     }
 
     public Optional<Client> findById(int id) {

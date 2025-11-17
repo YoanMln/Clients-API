@@ -12,4 +12,9 @@ public class ClientAdvice {
     public ResponseEntity<String> handleInvalidLicense(InvalidLicenseException ex){
         return new ResponseEntity<>("Cannot add client: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ClientUnder18Exception.class)
+    public ResponseEntity<String> handleClientUnder18(ClientUnder18Exception ex){
+        return new ResponseEntity<>("Cannot add client: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
