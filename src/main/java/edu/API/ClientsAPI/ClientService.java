@@ -40,6 +40,7 @@ public class ClientService {
 
     public ResponseEntity<Client> addClient(Client client) throws InvalidLicenseException, ClientUnder18Exception{
         int clientAge = calculateClientAge(Optional.ofNullable(client));
+
         if (!isLicenseValid(client)){
             throw new InvalidLicenseException(client.getLicenseNumber());
         } else if (clientAge <18) {
