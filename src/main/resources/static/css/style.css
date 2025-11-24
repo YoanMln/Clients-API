@@ -59,11 +59,7 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.glass-effect:hover {
-  background: var(--glass-bg-hover);
-  box-shadow: var(--glass-shadow-hover);
-  transform: translateY(-4px);
-}
+
 
 .header {
   background: var(--glass-bg);
@@ -232,11 +228,7 @@ body {
   opacity: 1;
 }
 
-.stat-card:hover {
-  background: var(--glass-bg-hover);
-  transform: translateY(-6px);
-  box-shadow: var(--glass-shadow-hover);
-}
+
 
 .stat-icon {
   width: 3.5rem;
@@ -278,10 +270,7 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.search-section:hover {
-  background: var(--glass-bg-hover);
-  transform: translateY(-2px);
-}
+
 
 .search-box {
   position: relative;
@@ -440,11 +429,7 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.table-container:hover {
-  background: var(--glass-bg-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--glass-shadow-hover);
-}
+
 
 .clients-table {
   width: 100%;
